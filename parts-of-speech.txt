@@ -1,0 +1,13 @@
+X-	particle
+V-	verb
+RR	relative-pronoun
+RP	personal-pronoun
+RI	interrogative-indefinite-pronoun
+RD	demonstrative-pronoun
+RA	definite-article
+P-	preposition
+N-	noun
+I-	interjection
+D-	adverb
+C-	conjunction
+A-	adjective

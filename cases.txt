@@ -1,0 +1,4 @@
+N	nominative
+G	genitive
+D	dative
+A	accusative

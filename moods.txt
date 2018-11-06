@@ -1,0 +1,6 @@
+I	indicative
+D	imperative
+S	subjunctive
+O	optative
+N	infinitive
+P	participle

@@ -1,0 +1,6 @@
+P	present
+I	imperfect
+F	future
+A	aorist
+X	perfect
+Y	pluperfect

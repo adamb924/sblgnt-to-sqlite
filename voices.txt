@@ -1,0 +1,3 @@
+A	active
+M	middle
+P	passive

@@ -1,0 +1,3 @@
+M	masculine
+F	feminine
+N	neuter
