@@ -20,5 +20,5 @@ SELECT tense,COUNT(tense) FROM sblgnt WHERE part_of_speech='verb' GROUP BY tense
 -- How often the various tenses appear in each lemma
 SELECT lemma,tense,COUNT(tense) FROM sblgnt WHERE part_of_speech='verb' GROUP BY lemma,tense ORDER BY lemma ASC;
 
--- Same as above, but with percentages
-SELECT lemma,tense,COUNT(tense) FROM sblgnt WHERE part_of_speech='verb' GROUP BY lemma,tense ORDER BY lemma ASC;
+-- Same as above, but in John
+SELECT lemma,tense,COUNT(tense) FROM sblgnt WHERE part_of_speech='verb' AND book_name='John' GROUP BY lemma,tense ORDER BY lemma ASC;
