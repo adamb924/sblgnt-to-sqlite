@@ -117,50 +117,41 @@ UPDATE sblgnt SET degree_code=SUBSTR(parsing_code,8,1);
 COMMIT TRANSACTION;
 
 -- produce human-readable parts of speech
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
+CREATE TABLE parts_of_speech ( code TEXT,  human_readable TEXT);
 .separator "	"
-.import parts-of-speech.txt _codes
-UPDATE sblgnt SET part_of_speech=(SELECT human_readable FROM _codes WHERE part_of_speech_code=code);
-DROP TABLE _codes;
+.import parts-of-speech.txt parts_of_speech
+UPDATE sblgnt SET part_of_speech=(SELECT human_readable FROM parts_of_speech WHERE part_of_speech_code=code);
 
 -- produce human-readable grammatical parsings
 .separator "	"
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
-.import persons.txt _codes
-UPDATE sblgnt SET person=(SELECT human_readable FROM _codes WHERE code=person_code);
-DROP TABLE _codes;
+CREATE TABLE persons ( code TEXT,  human_readable TEXT);
+.import persons.txt persons
+UPDATE sblgnt SET person=(SELECT human_readable FROM persons WHERE code=person_code);
 
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
-.import tenses.txt _codes
-UPDATE sblgnt SET tense=(SELECT human_readable FROM _codes WHERE code=tense_code);
-DROP TABLE _codes;
+CREATE TABLE tenses ( code TEXT,  human_readable TEXT);
+.import tenses.txt tenses
+UPDATE sblgnt SET tense=(SELECT human_readable FROM tenses WHERE code=tense_code);
 
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
-.import voices.txt _codes
-UPDATE sblgnt SET voice=(SELECT human_readable FROM _codes WHERE code=voice_code);
-DROP TABLE _codes;
+CREATE TABLE voices ( code TEXT,  human_readable TEXT);
+.import voices.txt voices
+UPDATE sblgnt SET voice=(SELECT human_readable FROM voices WHERE code=voice_code);
 
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
-.import moods.txt _codes
-UPDATE sblgnt SET mood=(SELECT human_readable FROM _codes WHERE code=mood_code);
-DROP TABLE _codes;
+CREATE TABLE moods ( code TEXT,  human_readable TEXT);
+.import moods.txt moods
+UPDATE sblgnt SET mood=(SELECT human_readable FROM moods WHERE code=mood_code);
 
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
-.import cases.txt _codes
-UPDATE sblgnt SET grammatical_case=(SELECT human_readable FROM _codes WHERE code=grammatical_case_code);
-DROP TABLE _codes;
+CREATE TABLE grammatical_cases ( code TEXT,  human_readable TEXT);
+.import cases.txt grammatical_cases
+UPDATE sblgnt SET grammatical_case=(SELECT human_readable FROM grammatical_cases WHERE code=grammatical_case_code);
 
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
-.import numbers.txt _codes
-UPDATE sblgnt SET grammatical_number=(SELECT human_readable FROM _codes WHERE code=grammatical_number_code);
-DROP TABLE _codes;
+CREATE TABLE grammatical_numbers ( code TEXT,  human_readable TEXT);
+.import numbers.txt grammatical_numbers
+UPDATE sblgnt SET grammatical_number=(SELECT human_readable FROM grammatical_numbers WHERE code=grammatical_number_code);
 
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
-.import genders.txt _codes
-UPDATE sblgnt SET gender=(SELECT human_readable FROM _codes WHERE code=gender_code);
-DROP TABLE _codes;
+CREATE TABLE genders ( code TEXT,  human_readable TEXT);
+.import genders.txt genders
+UPDATE sblgnt SET gender=(SELECT human_readable FROM genders WHERE code=gender_code);
 
-CREATE TEMPORARY TABLE _codes ( code TEXT,  human_readable TEXT);
-.import degrees.txt _codes
-UPDATE sblgnt SET degree=(SELECT human_readable FROM _codes WHERE code=degree_code);
-DROP TABLE _codes;
+CREATE TABLE degrees ( code TEXT,  human_readable TEXT);
+.import degrees.txt degrees
+UPDATE sblgnt SET degree=(SELECT human_readable FROM degrees WHERE code=degree_code);
