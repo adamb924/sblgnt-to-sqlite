@@ -1,27 +1,27 @@
-01	Mat	Matthew
-02	Mar	Mark
-03	Luk	Luke
-04	Joh	John
-05	Act	Acts
-06	Rom	Romans
-07	1Co	1 Corinthians
-08	2Co	2 Corinthians
-09	Gal	Galatians
-10	Eph	Ephesians
-11	Phi	Philippians
-12	Col	Colossians
-13	1Th	1 Thessalonians
-14	2Th	2 Thessalonians
-15	1Ti	1 Timothy
-16	2Ti	2 Timothy
-17	Tit	Titus
-18	Phm	Philemon
-19	Heb	Hebrews
-20	Jam	James
-21	1Pe	1 Peter
-22	2Pe	2 Peter
-23	1Jo	1 John
-24	2Jo	2 John
-25	3Jo	3 John
-26	Jud	Jude
-27	Rev	Revelation
+1	Mat	Matthew	40
+2	Mar	Mark	41
+3	Luk	Luke	42
+4	Joh	John	43
+5	Act	Acts	44
+6	Rom	Romans	45
+7	1Co	1 Corinthians	46
+8	2Co	2 Corinthians	47
+9	Gal	Galatians	48
+10	Eph	Ephesians	49
+11	Phi	Philippians	50
+12	Col	Colossians	51
+13	1Th	1 Thessalonians	52
+14	2Th	2 Thessalonians	53
+15	1Ti	1 Timothy	54
+16	2Ti	2 Timothy	55
+17	Tit	Titus	56
+18	Phm	Philemon	57
+19	Heb	Hebrews	58
+20	Jam	James	59
+21	1Pe	1 Peter	60
+22	2Pe	2 Peter	61
+23	1Jo	1 John	62
+24	2Jo	2 John	63
+25	3Jo	3 John	64
+26	Jud	Jude	65
+27	Rev	Revelation	66

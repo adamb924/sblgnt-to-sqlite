@@ -43,7 +43,7 @@ CREATE TEMP TABLE _csv_import (
 -- load the book name data from a text file
 -- I'm creating this as a permanent table because it may be generally useful
 DROP TABLE IF EXISTS book_names;
-CREATE TABLE book_names ( _id INTEGER PRIMARY KEY AUTOINCREMENT, code TEXT, name TEXT );
+CREATE TABLE book_names ( _id INTEGER PRIMARY KEY AUTOINCREMENT, code TEXT, name TEXT, canonical_book_number INTEGER );
 .separator "	"
 .import book-names.txt book_names
 
@@ -61,6 +61,7 @@ CREATE TABLE sblgnt (
 											 normalized_word TEXT,
 											lemma TEXT,
 											book_number INTEGER,
+											canonical_book_number INTEGER,
 											book_code TEXT,
 											book_name TEXT,
 											chapter INTEGER,
@@ -97,6 +98,7 @@ UPDATE sblgnt SET chapter=SUBSTR(citation,3,2);
 UPDATE sblgnt SET verse=SUBSTR(citation,5,2);
 UPDATE sblgnt SET book_code=(select code from book_names where book_number=_id);
 UPDATE sblgnt SET book_name=(select name from book_names where book_number=_id);
+UPDATE sblgnt SET canonical_book_number=(select canonical_book_number from book_names where book_number=_id);
 
 -- set values for 'position' — the position of the word in the verse in which it occurs (1-indexed)
 CREATE TEMPORARY TABLE _minimum_ids ( least_id INTEGER,  book_number INTEGER, chapter INTEGER, verse INTEGER);

@@ -41,6 +41,8 @@ Columns
    column 7 of the SBLGNT data
  * book_number
    number of the biblical book (extracted from citation field)
+ * canonical_book_number
+   book_number + 39 (with a view to eventually adding in the LXX)
  * book_code
    three-letter abbreviation of the book (following UBS's abbreviations)
  * book_name
