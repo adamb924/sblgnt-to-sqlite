@@ -5,6 +5,7 @@ This is simple sqlite3 code to import the MorphGNT data into a sqlite database, 
 
 MorphGNT is here:
 http://morphgnt.org/
+
 Specifically, this repository:
 https://github.com/morphgnt/sblgnt
 
@@ -14,12 +15,17 @@ https://www.sqlite.org/
 Usage
 -----------
 On my Windows computer, I am able to execute the code as follows:
-
+```
 sqlite3 sblgnt.db ".read sblgnt-to-sqlite.sql"
-
+```
 The code assumes that this folder (sblgnt-to-sqlite) is a sister directory to sblgnt (which contains "61-Mt-morphgnt.txt" et al.). If that doesn't describe your situation, you can just change the file path on lines 15 through 41 in "sblgnt-to-sqlite.sql".
 
 "demo-queries.sql" has some sample queries.
+
+Pericope of the Adulterous Woman
+-----------
+John 7:53-8:11 was originally not included in the SBL GNT, but now it has been included. The `paw` branch includes the pericope, by importing it from [chadwhitacre's](https://github.com/chadwhitacre/sblgnt/tree/cwlw/woman-caught-in-adultery) fork.
+
 
 Columns
 -----------
