@@ -58,3 +58,101 @@ SELECT lemma,
 	(SELECT COUNT(*) FROM tmp WHERE lemma=tmpTable.lemma) AS tenses_used
 	FROM tmp tmpTable GROUP BY lemma;
 
+-- Number of word forms in the NT
+SELECT COUNT(_id) FROM sblgnt;
+
+-- Number of distinct lemmas in the NT
+SELECT COUNT(DISTINCT lemma) FROM sblgnt;
+
+-- Number of chapters in the Bible
+SELECT COUNT(DISTINCT book_number||','||chapter) FROM sblgnt;
+
+-- Number of words in the NT, by book
+SELECT book_name,COUNT(*) AS Words FROM sblgnt GROUP BY book_name ORDER BY book_number ASC;
+
+-- Number of distinct lemmas in the NT, by book
+SELECT book_name,COUNT(DISTINCT lemma) AS Lemmas FROM sblgnt GROUP BY book_name ORDER BY book_number ASC;
+
+-- Number of verses per book
+SELECT book_name,COUNT(DISTINCT book_number||','||chapter||','||verse) AS Verses FROM sblgnt GROUP BY book_name ORDER BY book_number ASC;
+
+-- Number of chapters per book
+SELECT book_name,COUNT(DISTINCT book_number||','||chapter) AS Chapters FROM sblgnt GROUP BY book_name ORDER BY book_number ASC;
+
+
+-- Average number of words per verse
+SELECT book_name,
+		COUNT(_id) AS Words,
+		COUNT(DISTINCT book_number||','||chapter||','||verse) AS Verses, 
+		CAST( COUNT(DISTINCT _id) AS REAL)/CAST(COUNT(DISTINCT book_number||','||chapter||','||verse) AS REAL) AS WordsPerVerse 
+	FROM sblgnt GROUP BY book_name ORDER BY book_number ASC;
+
+
+-- Average number of distinct lemmas per verse
+SELECT book_name,
+		COUNT(DISTINCT lemma) AS Lemmas,
+		COUNT(DISTINCT book_number||','||chapter||','||verse) AS Verses, 
+		CAST( COUNT(DISTINCT lemma) AS REAL)/CAST(COUNT(DISTINCT book_number||','||chapter||','||verse) AS REAL) AS DistinctLemmasPerVerse 
+	FROM sblgnt GROUP BY book_name ORDER BY book_number ASC;
+
+-- Average number of distinct lemmas per word
+SELECT book_name,
+		COUNT(DISTINCT lemma) AS Lemmas,
+		COUNT(_id) AS Words, 
+		CAST( COUNT(DISTINCT lemma) AS REAL)/CAST(COUNT(_id) AS REAL) AS DistinctLemmasPerWord 
+	FROM sblgnt GROUP BY book_name ORDER BY book_number ASC;
+
+-- Total number of hapax legmomena
+SELECT COUNT(lemma) as NumberHapax FROM 
+	(SELECT lemma,COUNT(lemma) AS cnt,book_name,book_number FROM sblgnt GROUP BY lemma) 
+	WHERE cnt=1;
+
+-- Number of hapax legomena per book
+SELECT book_name,COUNT(lemma) as NumberHapax FROM 
+	(SELECT lemma,COUNT(lemma) AS cnt,book_name,book_number FROM sblgnt GROUP BY lemma) 
+	WHERE cnt=1 GROUP BY book_name ORDER BY book_number ASC;
+
+
+-- Number of words in the book that appear nowhere else
+SELECT book_name,COUNT(lemma) as NumberOnlyFoundHere FROM 
+	( SELECT lemma,COUNT(book_name) as NumberOfBooks,book_name,book_number FROM
+		(SELECT DISTINCT book_name,lemma,book_number FROM sblgnt)
+		GROUP BY lemma HAVING NumberOfBooks=1 )
+	GROUP BY book_name
+	ORDER BY book_number;
+
+-- Number of words in the book that appear nowhere else, as a fraction of words in the book
+SELECT tmpB.book_name,COUNT(lemma) as NumberOnlyFoundHere, Lemmas, CAST(COUNT(lemma) AS REAL)/CAST(Lemmas AS REAL) FROM 
+	( SELECT lemma,COUNT(book_name) as NumberOfBooks,book_name,book_number FROM
+		(SELECT DISTINCT book_name,lemma,book_number FROM sblgnt)
+		GROUP BY lemma HAVING NumberOfBooks=1 ) AS tmpA
+	LEFT JOIN
+		( SELECT book_name,COUNT(DISTINCT lemma) AS Lemmas FROM sblgnt GROUP BY book_name ) AS tmpB
+	ON tmpA.book_name=tmpB.book_name
+	GROUP BY tmpB.book_name
+	ORDER BY book_number ASC;
+
+
+-- Number of words per book
+SELECT book_name,COUNT(_id) AS nWords FROM sblgnt GROUP BY book_name ORDER BY book_number ASC;
+
+-- Number of participles per book
+SELECT book_name,COUNT(_id) AS nParticiples FROM sblgnt WHERE part_of_speech='verb' AND gender IS NOT NULL GROUP BY book_name ORDER BY book_number ASC;
+
+-- Number of participles as a fraction of the number of words
+SELECT tmpA.book_name,CAST( nParticiples AS REAL)/CAST(nWords AS REAL) as Fraction FROM
+	(SELECT book_number,book_name,COUNT(_id) AS nWords FROM sblgnt GROUP BY book_name) AS tmpA
+		LEFT JOIN
+	(SELECT book_name,COUNT(_id) AS nParticiples FROM sblgnt WHERE part_of_speech='verb' AND gender IS NOT NULL GROUP BY book_name) AS tmpB
+	ON tmpA.book_name=tmpB.book_name
+	ORDER BY tmpA.book_number ASC;
+
+-- Number of participles as a fraction of the number of relative pronouns
+SELECT tmpA.book_name,CAST( nParticiples AS REAL)/CAST(nPronouns AS REAL) as Fraction FROM
+	(SELECT book_number,book_name,COUNT(_id) AS nPronouns FROM sblgnt WHERE part_of_speech='relative-pronoun' GROUP BY book_name) AS tmpA
+		LEFT JOIN
+	(SELECT book_name,COUNT(_id) AS nParticiples FROM sblgnt WHERE part_of_speech='verb' AND gender IS NOT NULL GROUP BY book_name) AS tmpB
+	ON tmpA.book_name=tmpB.book_name
+	ORDER BY tmpA.book_number ASC;
+
+
