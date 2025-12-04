@@ -83,7 +83,8 @@ CREATE TABLE sblgnt (
 											grammatical_case text DEFAULT NULL,
 											grammatical_number text DEFAULT NULL,
 											gender text DEFAULT NULL,
-											degree text DEFAULT NULL
+											degree text DEFAULT NULL,
+											reference text DEFAULT NULL
 										);
 -- insert the imported data from _csv_import into sblgnt
 INSERT INTO sblgnt (citation, part_of_speech_code, parsing_code, punctuated_text, unpunctuated_text,  normalized_word, lemma) 
@@ -115,6 +116,11 @@ UPDATE sblgnt SET grammatical_case_code=SUBSTR(parsing_code,5,1);
 UPDATE sblgnt SET grammatical_number_code=SUBSTR(parsing_code,6,1);
 UPDATE sblgnt SET gender_code=SUBSTR(parsing_code,7,1);
 UPDATE sblgnt SET degree_code=SUBSTR(parsing_code,8,1);
+
+-- set the sblgnt.reference column
+UPDATE sblgnt SET reference=
+(SELECT UBS||' '||chapter||':'||verse AS reference FROM sblgnt AS sbl INNER JOIN book_names ON sbl.book_code=book_names.code WHERE sbl._id=sblgnt._id);
+
 
 COMMIT TRANSACTION;
 
