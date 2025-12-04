@@ -43,7 +43,7 @@ CREATE TEMP TABLE _csv_import (
 -- load the book name data from a text file
 -- I'm creating this as a permanent table because it may be generally useful
 DROP TABLE IF EXISTS book_names;
-CREATE TABLE book_names ( _id INTEGER PRIMARY KEY AUTOINCREMENT, code TEXT, name TEXT, canonical_book_number INTEGER );
+CREATE TABLE book_names ( _id INTEGER PRIMARY KEY AUTOINCREMENT, code TEXT, name TEXT, canonical_book_number INTEGER, UBS TEXT );
 .separator "	"
 .import book-names.txt book_names
 
